@@ -1,0 +1,36 @@
+package Pokemons;
+
+import java.util.Random;
+
+public class Attack
+{
+    public static int power; // 위력
+    public static int attack; // 공격
+    public static int level; // 레벨
+    public static int critical; // 급소 (1 또는 2)
+    public static int defense; // 방어
+    public static double type1; // 타입1 상성 (2, 1, 0.5, 0)
+    public static double type2; // 타입2 상성 (2, 1, 0.5, 0)
+
+    // 현재 int ...으로 되어있는 것 배열에서 값 전부 가져오는 거로 바꿔야함.
+    public Attack(int power, int attack, int level, int critical, int defense, double type1, double type2) {
+        Attack.power = power;
+        Attack.attack = attack;
+        Attack.level = level;
+        Attack.critical = critical;
+        Attack.defense = defense;
+        Attack.type1 = type1;
+        Attack.type2 = type2;
+    }
+
+    public static int calculateDamage() {
+        Random rand = new Random();
+        int randomNum = rand.nextInt(39) + 217; // 217 ~ 255 사이의 랜덤한 수
+        double typeEffectiveness = type1 * type2;
+        double damage = ((2 * level + 10) / 250.0) * attack / defense * power * critical
+                + ((2 * level + 10) / 250.0) * 2 * critical;
+        damage *= typeEffectiveness;
+        damage *= randomNum / 255.0;
+        return (int) Math.round(damage);
+    }
+}
